@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jay Cucinell — WHITE GARDEN ARCHIVE</title>
+    <link rel="stylesheet" href="../codes/style.css">
+    <style>
+        body{background:#f5f5f1;overflow-x:hidden;overflow-y:auto;}
+        .artist-page{width:100%;min-height:100vh;padding:10vh 6vw;}
+        .artist-layout{display:flex;justify-content:space-between;align-items:flex-start;gap:6vw;}
+        .artist-image{width:58%;position:sticky;top:8vh;}
+        .artist-image img{width:100%;max-height:84vh;object-fit:contain;background:#f5f5f1;}
+        .artist-info{width:34%;padding-top:4vh;}
+        .artist-name{font-size:0.7rem;letter-spacing:0.35em;text-transform:uppercase;opacity:0.35;margin-bottom:3vh;}
+        .artist-title{font-size:2rem;font-weight:300;line-height:1.4;letter-spacing:0.05em;margin-bottom:2vh;}
+        .artist-medium{font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;opacity:0.35;margin-bottom:6vh;}
+        .artist-statement{font-size:0.85rem;line-height:2.2;opacity:0.72;margin-bottom:8vh;}
+        .other-title{font-size:0.65rem;letter-spacing:0.35em;text-transform:uppercase;opacity:0.3;margin-bottom:3vh;}
+        .other-works{display:flex;flex-direction:column;gap:2vh;}
+        .other-works img{width:100%;opacity:0.92;transition:0.6s ease;cursor:pointer;}
+        .other-works img:hover{opacity:1;transform:translateX(8px);}
+        .back{position:fixed;top:30px;left:30px;z-index:9999;font-size:0.65rem;letter-spacing:0.28em;text-transform:uppercase;opacity:0.3;transition:0.4s ease;}
+        .back:hover{opacity:1;transform:translateX(-4px);}
+        @media screen and (max-width:700px){
+            .artist-layout{flex-direction:column;}
+            .artist-image{width:100%;position:relative;top:auto;}
+            .artist-info{width:100%;}
+            .artist-title{font-size:1.4rem;}
+        }
+    </style>
+</head>
+<body>
+
+    <a href="../gallery.html" id="backToGallery" class="back">← ARCHIVE</a>
+    <section class="artist-page">
+        <div class="artist-layout">
+
+            <div class="artist-image">
+                <img id="mainArtwork" src="../artworks/studio art/55.png" alt="">
+            </div>
+
+            <div class="artist-info">
+
+                <p class="artist-name">Jay Cucinell</p>
+                
+                <h1 class="artist-title" id="artworkTitle">Untitled</h1>
+                
+                <p class="artist-medium">PHOTOGRAPHY · 2026</p>
+
+                <div class="artist-statement">
+                    <p>
+                        I took these photographs without expectations. I had brought my camera along on a fishing trip, thinking I might take a few pictures if the moment felt right. But when I saw the vividly colored ducks moving through a cold, quiet landscape, to me, this moment was more than just a photograph.
+                    </p>
+                    <br>
+                    <p>
+                    These ducks, living and persevering through one of the harshest seasons, became a source of inspiration for me. What stood out most was that they were never alone; each one had at least one other by its side. In a frozen, lifeless environment, there was still connection, movement, and quiet resilience.
+                    </p>
+                    <br>
+                    <p>
+                    Nature has always been an important part of my life. Growing up, I spent hours outside in the woods, so long that my parents would sometimes worry. As I got older, I drifted away from that connection. Recently, I've been trying to return to it, mostly through fishing. Bringing my camera with me has become part of that. I've started to see nature not just as a place, but as something that communicates. There is a quiet beauty in being by the river, surrounded by the woods, that I wanted to capture and share.
+                    </p>
+                    <br>
+                    <p>
+                    Ultimately, I wanted to share both the resilience of wildlife in winter and my own effort to reconnect with something I had nearly lost.    
+                    </p>
+                </div>
+
+                <p class="other-title">OTHER WORKS</p>
+                <div class="other-works" id="otherWorks"></div>
+
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // ==========================================
+        // 作品数据库：Jay Cucinell 的作品皆为 Untitled
+        // ==========================================
+        const workTitles = {
+            55: "Untitled",
+            56: "Untitled"
+        };
+        
+        // 4. 修改为 Jay 的所有作品编号
+        const jayWorks = [55, 56];
+        
+        const params = new URLSearchParams(window.location.search);
+        const work = params.get("work");
+        
+        // 当前作品编号（默认 55）
+        const currentWork = parseInt(work) || 55;
+        
+        // 设置主图
+        document.getElementById("mainArtwork").src = `../artworks/studio art/${currentWork}.png`;
+        
+        // 设置标题
+        document.getElementById("artworkTitle").textContent = workTitles[currentWork] || "Untitled";
+        
+        // 动态生成 Other Works
+        const otherContainer = document.getElementById('otherWorks');
+        
+        jayWorks.forEach(num => {
+            // ===================================================
+// 动态修改返回链接：确保按 ARCHIVE 时，能带着当前看的编号回展厅
+// ===================================================
+const backBtn = document.getElementById("backToGallery");
+if (backBtn) {
+    // 这里的 currentWork 是你页面里现有的当前作品数字变量
+    backBtn.href = `../gallery.html?backToWork=${currentWork}&restore=1`;
+}
+            if(num !== currentWork){
+            
+                const link = document.createElement('a');
+                // 5. 跳转链接修改为 jay-cucinell.html
+                link.href = `jay-cucinell.html?work=${num}`;
+                
+                const img = document.createElement('img');
+                img.src = `../artworks/studio art/${num}.png`;
+                img.alt = workTitles[num] || `Work ${num}`;
+                
+                link.appendChild(img);
+                otherContainer.appendChild(link);
+            }
+        });
+    </script>
+
+</body>
+</html>

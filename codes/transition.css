@@ -1,0 +1,138 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    width:100vw;
+    height:100vh;
+
+    overflow:hidden;
+
+    background:#f8f8f4;
+
+    position:relative;
+
+    opacity:1;
+
+    transition:opacity 2s ease;
+}
+
+/* ---------- film grain ---------- */
+
+body::before{
+
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:url("../artworks/noise.png");
+
+    opacity:0.03;
+
+    pointer-events:none;
+
+    z-index:20;
+}
+
+/* ---------- image ---------- */
+
+.finalImage{
+
+    position:absolute;
+
+    top:50%;
+    left:50%;
+
+    transform:
+    translate(-50%,-50%)
+    scale(0.9);
+
+    width:28vw;
+
+    object-fit:cover;
+
+    opacity:0;
+
+    filter:
+    grayscale(100%)
+    contrast(1.05);
+
+    animation:
+    appear 3s ease forwards,
+    zoomIn 8s cubic-bezier(.19,1,.22,1) forwards;
+
+}
+
+/* ---------- slow appear ---------- */
+
+@keyframes appear{
+
+    from{
+        opacity:0;
+    }
+
+    to{
+        opacity:1;
+    }
+
+}
+
+/* ---------- entering image ---------- */
+
+@keyframes zoomIn{
+
+    0%{
+
+        transform:
+        translate(-50%,-50%)
+        scale(0.9);
+
+    }
+
+    100%{
+
+        transform:
+        translate(-50%,-50%)
+        scale(4.8);
+
+    }
+
+}
+
+/* ---------- optional text ---------- */
+
+.caption{
+
+    position:absolute;
+
+    bottom:60px;
+    width:100%;
+
+    text-align:center;
+
+    font-size:11px;
+    letter-spacing:4px;
+
+    opacity:0;
+
+    animation:
+    textFade 3s ease forwards;
+
+    animation-delay:1s;
+}
+
+@keyframes textFade{
+
+    from{
+        opacity:0;
+    }
+
+    to{
+        opacity:0.4;
+    }
+
+}

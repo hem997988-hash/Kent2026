@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Harold (Harry) Wan — WHITE GARDEN ARCHIVE</title>
+
+    <link rel="stylesheet"
+        href="../codes/style.css">
+
+    <style>
+
+        body{
+
+            background:#f5f5f1;
+
+            overflow-x:hidden;
+            overflow-y:auto;
+
+        }
+
+        /* ========================================== */
+        /* PAGE LAYOUT */
+        /* ========================================== */
+
+        .artist-page{
+
+            width:100%;
+
+            min-height:100vh;
+
+            padding:
+            10vh
+            6vw;
+
+        }
+
+        .artist-layout{
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:flex-start;
+
+            gap:6vw;
+
+        }
+
+        /* ========================================== */
+        /* LEFT IMAGE */
+        /* ========================================== */
+
+        .artist-image{
+
+            width:58%;
+
+            position:sticky;
+
+            top:8vh;
+
+        }
+
+        .artist-image img{
+
+            width:100%;
+
+            max-height:84vh;
+
+            object-fit:contain;
+
+            background:#f5f5f1;
+
+        }
+
+        /* ========================================== */
+        /* RIGHT INFO */
+        /* ========================================== */
+
+        .artist-info{
+
+            width:34%;
+
+            padding-top:4vh;
+
+        }
+
+        .artist-name{
+
+            font-size:0.7rem;
+
+            letter-spacing:0.35em;
+
+            text-transform:uppercase;
+
+            opacity:0.35;
+
+            margin-bottom:3vh;
+
+        }
+
+        .artist-title{
+
+            font-size:2rem;
+
+            font-weight:300;
+
+            line-height:1.4;
+
+            letter-spacing:0.05em;
+
+            margin-bottom:2vh;
+
+        }
+
+        .artist-medium{
+
+            font-size:0.72rem;
+
+            letter-spacing:0.22em;
+
+            text-transform:uppercase;
+
+            opacity:0.35;
+
+            margin-bottom:6vh;
+
+        }
+
+        .artist-statement{
+
+            font-size:0.85rem;
+
+            line-height:2.2;
+
+            opacity:0.72;
+
+            margin-bottom:8vh;
+
+        }
+
+        /* ========================================== */
+        /* OTHER WORKS */
+        /* ========================================== */
+
+        .other-title{
+
+            font-size:0.65rem;
+
+            letter-spacing:0.35em;
+
+            text-transform:uppercase;
+
+            opacity:0.3;
+
+            margin-bottom:3vh;
+
+        }
+
+        .other-works{
+
+            display:flex;
+
+            flex-direction:column;
+
+            gap:2vh;
+
+        }
+
+        .other-works img{
+
+            width:100%;
+
+            opacity:0.92;
+
+            transition:0.6s ease;
+
+            cursor:pointer;
+
+        }
+
+        .other-works img:hover{
+
+            opacity:1;
+
+            transform:translateX(8px);
+
+        }
+
+        /* ========================================== */
+        /* BACK BUTTON */
+        /* ========================================== */
+
+        .back{
+
+            position:fixed;
+
+            top:30px;
+            left:30px;
+
+            z-index:9999;
+
+            font-size:0.65rem;
+
+            letter-spacing:0.28em;
+
+            text-transform:uppercase;
+
+            opacity:0.3;
+
+            transition:0.4s ease;
+
+        }
+
+        .back:hover{
+
+            opacity:1;
+
+            transform:translateX(-4px);
+
+        }
+
+        /* ========================================== */
+        /* MOBILE */
+        /* ========================================== */
+
+        @media screen and (max-width:700px){
+
+            .artist-layout{
+
+                flex-direction:column;
+
+            }
+
+            .artist-image{
+
+                width:100%;
+
+                position:relative;
+
+                top:auto;
+
+            }
+
+            .artist-info{
+
+                width:100%;
+
+            }
+
+            .artist-title{
+
+                font-size:1.4rem;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <a href="../gallery.html" id="backToGallery" class="back">← ARCHIVE</a>
+
+    <section class="artist-page">
+
+        <div class="artist-layout">
+
+            <div class="artist-image">
+
+                <img
+                id="mainArtwork"
+                src="../artworks/studio art/13.png"
+                alt="">
+
+            </div>
+
+            <div class="artist-info">
+
+                <p class="artist-name">
+
+                    Harold (Harry) Wan
+
+                </p>
+
+                <h1 class="artist-title" id="artworkTitle">
+
+                    Untitled
+
+                </h1>
+
+                <p class="artist-medium">
+
+                    2D, 3D, MIXED MEDIA · 2026
+
+                </p>
+
+                <div class="artist-statement">
+
+                    <p>
+
+                        As an artist and an aspiring architect, 
+                        my work is driven by experimentation and exploration. 
+                        From the beginning of my time in AS Studio Art, 
+                        I have been drawn to working across multiple mediums, 
+                        techniques, and styles to inform my understanding of 
+                        the world and deepen my passion for architecture. 
+                        Through close observation and an awareness of 
+                        perspective, my work reflects a balance between 
+                        structural thinking and creative expression.
+
+                    </p>
+
+                    <br>
+
+                    <p>
+
+                        Over the course of AS Studio Art, my process 
+                        has evolved from tentative exploration into a more 
+                        confident, intentional approach. What began as a 
+                        fascination with materials, textures, and patterns 
+                        has grown into a practice of iteration. Inspired by 
+                        maps and patterns, my work is often continuous, each 
+                        iteration informing the next. This process is often 
+                        visible in my animations and large-scale sculptures, 
+                        where experimentation and iteration play a crucial 
+                        role in the finished work.
+
+                    </p>
+
+                    <br>
+
+                    <p>
+
+                        My work pushes me to balance discovery and control. 
+                        While my interest in architecture pushes me towards 
+                        structure and clarity, my artistic practice gives me 
+                        room for exploration and experimentation. Through this 
+                        balance, I continue to challenge myself, using my 
+                        projects as an opportunity to explore the unknown.
+
+                    </p>
+
+                </div>
+
+                <p class="other-title">
+
+                    OTHER WORKS
+
+                </p>
+
+                <div class="other-works" id="otherWorks"></div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+<script>
+    // 1. 定义 Harry 的所有作品数据库（均为 Untitled）
+    const workTitles = {
+        13: "Untitled",
+        19: "Untitled",
+        20: "Untitled",
+        21: "Untitled"
+    };
+
+    const harryWorks = [13, 19, 20, 21];
+
+    const params = new URLSearchParams(window.location.search);
+    const work = params.get("work");
+
+    // 当前作品编号（如果无参数则默认第 13 号）
+    const currentWork = parseInt(work) || 13;
+
+    // 设置对应的主图和标题
+    document.getElementById("mainArtwork").src = `../artworks/studio art/${currentWork}.png`;
+    document.getElementById("artworkTitle").textContent = workTitles[currentWork] || "Untitled";
+
+    // 2. 动态生成 OTHER WORKS 列表（排除掉当前正在看的那张图）
+    const otherContainer = document.getElementById('otherWorks');
+    
+    harryWorks.forEach(num => {
+        if(num !== currentWork){
+            const link = document.createElement('a');
+            link.href = `harold-wan.html?work=${num}`;
+            
+            const img = document.createElement('img');
+            img.src = `../artworks/studio art/${num}.png`;
+            img.alt = workTitles[num] || `Work ${num}`;
+            
+            link.appendChild(img);
+            otherContainer.appendChild(link);
+        }
+    });
+
+    // ===================================================================
+    // 3. 【核心增加】动态修改返回链接：确保用户不管怎么切作品，按 ARCHIVE 都能带着它回展厅
+    // ===================================================================
+    const backBtn = document.getElementById("backToGallery");
+    if (backBtn) {
+        backBtn.href = `../gallery.html?backToWork=${currentWork}&restore=1`;
+    }
+</script>
+
+</body>
+
+</html>

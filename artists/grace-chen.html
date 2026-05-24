@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grace Chen — WHITE GARDEN ARCHIVE</title>
+    <link rel="stylesheet" href="../codes/style.css">
+    <style>
+        body{background:#f5f5f1;overflow-x:hidden;overflow-y:auto;}
+        .artist-page{width:100%;min-height:100vh;padding:10vh 6vw;}
+        .artist-layout{display:flex;justify-content:space-between;align-items:flex-start;gap:6vw;}
+        .artist-image{width:58%;position:sticky;top:8vh;}
+        .artist-image img{width:100%;max-height:84vh;object-fit:contain;background:#f5f5f1;}
+        .artist-info{width:34%;padding-top:4vh;}
+        .artist-name{font-size:0.7rem;letter-spacing:0.35em;text-transform:uppercase;opacity:0.35;margin-bottom:3vh;}
+        .artist-title{font-size:2rem;font-weight:300;line-height:1.4;letter-spacing:0.05em;margin-bottom:2vh;}
+        .artist-medium{font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;opacity:0.35;margin-bottom:6vh;}
+        .artist-statement{font-size:0.85rem;line-height:2.2;opacity:0.72;margin-bottom:8vh;}
+        .other-title{font-size:0.65rem;letter-spacing:0.35em;text-transform:uppercase;opacity:0.3;margin-bottom:3vh;}
+        .other-works{display:flex;flex-direction:column;gap:2vh;}
+        .other-works img{width:100%;opacity:0.92;transition:0.6s ease;cursor:pointer;}
+        .other-works img:hover{opacity:1;transform:translateX(8px);}
+        .back{position:fixed;top:30px;left:30px;z-index:9999;font-size:0.65rem;letter-spacing:0.28em;text-transform:uppercase;opacity:0.3;transition:0.4s ease;}
+        .back:hover{opacity:1;transform:translateX(-4px);}
+        @media screen and (max-width:700px){
+            .artist-layout{flex-direction:column;}
+            .artist-image{width:100%;position:relative;top:auto;}
+            .artist-info{width:100%;}
+            .artist-title{font-size:1.4rem;}
+        }
+    </style>
+</head>
+<body>
+
+    <a href="../gallery.html" id="backToGallery" class="back">← ARCHIVE</a>
+    <section class="artist-page">
+        <div class="artist-layout">
+
+            <div class="artist-image">
+                <img id="mainArtwork" src="../artworks/studio art/49.png" alt="">
+            </div>
+
+            <div class="artist-info">
+
+                <p class="artist-name">Grace Chen</p>
+                
+                <h1 class="artist-title" id="artworkTitle">Evolution of Form</h1>
+                
+                <p class="artist-medium">PHOTOGRAPHY · 2026</p>
+
+                <div class="artist-statement">
+                    <p>
+                        Over the past two years in Advanced Studio Arts, I have developed a focused practice in film photography, with an emphasis on black-and-white film. Initially, I began taking film photographs as a hobby, carrying my point-and-shoot camera while traveling. Through AS Studio Art, I began experimenting with different types of film, including black-and-white, medium-format, and color. I am drawn to the medium for its intentionality, unpredictability, physical process of developing, and visual restraint. By removing color, black-and-white film directs the attention toward composition, light, shadow, and texture. These elements have become central to how I approach both portraiture and studio work.
+                    </p>
+                    <p>
+                        The photographs selected for the AS Show reflect my interest in the relationship between the human body, clothing, and space. My fashion photographs of Adriana Malik's designs experiment with lighting, pose, and framing to emphasize the structure and movement of the garments. Photographing another artist's designs also challenged me to think more collaboratively, balancing my own visual style with the intention and construction of the designed garments.
+                    </p>
+                    <p>
+                        One of the pieces in the show is a diptych from my portfolio, Evolution of Form. The portfolio was curated around emphasizing the harmony between humans and nature, serving as an extension of my interest in environmental studies. In this work, I focused on the body as an organic form, exploring how posture, gesture, and silhouette can echo natural shapes and structures. The diptych format allowed me to create a visual conversation between two images, encouraging the viewer to compare the balance of movements and negative space across the pair.
+                    </p>
+                    <p>
+                        Throughout AS Studio Art, I have expanded my photography practice through studio shoots, long exposure, stop motion, emulsion lifts, and infrared film through black-and-white, medium-format, color, and Polaroid films. These experiments have pushed me to consider how technical choices can alter the mood and interpretation of a piece of work. Even as my work has broadened, film photography has remained the foundation of my practice because it requires deliberate observation and careful compositions.
+                    </p>
+                    <p>
+                        Film photography has taught me to experiment and look more intentionally, while also accepting the unexpected results that come with the medium. Through the works in this show, I hope to invite viewers to look closely at form, texture, and the relationships between the body, clothing, and the natural world.
+                    </p>
+                </div>
+
+                <p class="other-title">OTHER WORKS</p>
+                <div class="other-works" id="otherWorks"></div>
+
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // ==========================================
+        // 作品数据库：更新为 Grace Chen 的编号与对应标题
+        // ==========================================
+        const workTitles = {
+            49: "Evolution of Form",
+            54: "Untitled"
+        };
+        
+        // 4. Grace 的可用作品编号数组
+        const graceWorks = [49, 54];
+        
+        const params = new URLSearchParams(window.location.search);
+        const work = params.get("work");
+        
+        // 当前作品编号（默认49）
+        const currentWork = parseInt(work) || 49;
+        
+        // 设置主图
+        document.getElementById("mainArtwork").src = `../artworks/studio art/${currentWork}.png`;
+        
+        // 设置标题
+        document.getElementById("artworkTitle").textContent = workTitles[currentWork] || "Untitled";
+        
+        // 动态生成 Other Works 列表（排除当前正在显示的作品）
+        const otherContainer = document.getElementById('otherWorks');
+        
+        graceWorks.forEach(num => {
+            // ===================================================
+// 动态修改返回链接：确保按 ARCHIVE 时，能带着当前看的编号回展厅
+// ===================================================
+const backBtn = document.getElementById("backToGallery");
+if (backBtn) {
+    // 这里的 currentWork 是你页面里现有的当前作品数字变量
+    backBtn.href = `../gallery.html?backToWork=${currentWork}&restore=1`;
+}
+            if(num !== currentWork){
+                const link = document.createElement('a');
+                // 5. 跳转链接修改为 grace-chen.html
+                link.href = `grace-chen.html?work=${num}`;
+                
+                const img = document.createElement('img');
+                img.src = `../artworks/studio art/${num}.png`;
+                img.alt = workTitles[num] || `Work ${num}`;
+                
+                link.appendChild(img);
+                otherContainer.appendChild(link);
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>WHITE GARDEN GALLERY</title>
+
+    <link rel="stylesheet"
+        href="codes/style.css">
+
+    <style>
+        .fashion-lightbox {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #f5f5f1; 
+            z-index: 10005;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+        .fashion-lightbox.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .fashion-lightbox img {
+            max-width: 90%;
+            max-height: 84vh;
+            object-fit: contain;
+        }
+        .fashion-lightbox-close {
+            position: fixed;
+            top: 30px; left: 30px;
+            font-size: 0.65rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            opacity: 0.3;
+            cursor: pointer;
+            transition: 0.4s ease;
+        }
+        .fashion-lightbox-close:hover {
+            opacity: 1;
+            transform: translateX(-4px);
+        }
+    </style>
+
+</head>
+
+<body id="body">
+
+<div id="welcome-overlay">
+    <div class="overlay-screen">
+        <img src="artworks/color.png" class="overlay-img color-img" alt="Color">
+        <img src="artworks/white.png" class="overlay-img white-img" alt="White">
+        <h1 class="overlay-title">KENT</h1>
+    </div>
+    <div class="overlay-hint">SWIPE RIGHT →</div>
+</div>
+<audio id="bgMusic" autoplay loop>
+    <source src="audio/ambient.mp3" type="audio/mpeg">
+</audio>
+
+<button id="soundToggle">
+    SOUND OFF
+</button>
+
+<div class="BigContainer" id="BigContainer">
+
+<div id="display">
+
+    <button class="calanderBtn"
+        onclick="toggleCalendar()">
+
+        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png"
+            id="calanderImg">
+
+    </button>
+
+    <nav class="calander"
+        id="calander">
+
+        <a href="#studio">
+            STUDIO ART EXHIBITION
+        </a>
+
+        <a href="#fashion">
+            FASHION SHOW
+        </a>
+
+    </nav>
+
+    <div class="type"
+        id="type">
+
+        <a href="index.html"
+            id="current">
+
+            Archive
+
+        </a>
+
+        <a href="#">
+            Digital
+        </a>
+
+    </div>
+
+    <p class="heading">
+
+        WHITE GARDEN<br>
+        EXHIBITION ARCHIVE 2026
+
+    </p>
+
+    <div class="top">
+
+        <p class="intro">
+
+            Archive of 
+            2D Visuals,
+            Sculptures,
+            Ceramics,
+            Models,
+            Fashion Design
+
+        </p>
+
+    </div>
+
+    <section class="container" id="galleryContainer">
+
+        <div class="scroll-spacer"></div>
+        <div class="section-title"
+            id="studio">
+
+            <p>
+                STUDIO ART EXHIBITION
+            </p>
+
+        </div>
+
+        <script>
+    for(let i = 1; i <= 61; i++){
+        
+        let artistPage = 'artists/kent.html'; // 默认
+        
+        // Jilly Avancena
+        if (i >= 15 && i <= 18) {
+            artistPage = 'artists/jillianne-avancena.html';
+        }
+        // Harold Wan
+       else if ([13, 19, 20, 21].includes(i)) {
+            artistPage = 'artists/harold-wan.html';
+        }
+        // Senna Reyes
+        else if (i >= 23 && i <= 25) {
+            artistPage = 'artists/senna-reyes.html';
+        }
+        // Ella Sun
+        else if ([7, 8, 26, 27, 28].includes(i)) {
+            artistPage = 'artists/ella-sun.html';
+        }
+        // Kate Blaicher
+        else if ([4, 29, 30, 31, 57, 58, 59, 60, 61].includes(i)) {
+            artistPage = 'artists/kate-blaicher.html';
+        }
+        // Elva Hu
+        else if (i >= 32 && i <= 37) {
+            artistPage = 'artists/elva-hu.html';
+        }
+        // Emma Hu
+        else if (i >= 38 && i <= 43) {
+            artistPage = 'artists/emma-hu.html';
+        }
+        //Jayda wang
+        else if ([6, 48, 52, 53].includes(i)) {
+            artistPage = 'artists/jayda-wang.html';
+        }
+        // Cricket Foley 
+        else if ([5, 10, 11, 44, 45, 46, 47].includes(i)) {
+            artistPage = 'artists/cricket-foley.html';
+        }
+        // Nuria Surosh
+        if ([2, 3, 22].includes(i)) {
+            artistPage = 'artists/nuria-surosh.html';
+        }
+        // Lucas Husted-Edwards 
+        else if (i === 51) {
+            artistPage = 'artists/lucas-edwards.html';
+        }
+        // Jay Cucinell
+        else if ([55, 56].includes(i)) {
+            artistPage = 'artists/jay-cucinell.html';
+        }
+        // Jack Williams
+        else if ([12, 14, 50].includes(i)) {
+            artistPage = 'artists/jack-williams.html';
+        }
+        // Grace Chen
+        else if ([49, 54].includes(i)) {
+            artistPage = 'artists/grace-chen.html';
+        }
+        // Kristina Roeloffs
+        else if ([1, 9].includes(i)) {
+            artistPage = 'artists/kristina-roeloffs.html';
+        }
+
+        document.write(`
+            <div class="frame">
+                <img class="art"
+                    src="artworks/studio art/${i}.png"
+                    alt="Artwork ${i}"
+                    data-link="${artistPage}?work=${i}"
+                    data-work="${i}">
+                <div class="info">
+                    <p class="name">WORK ${String(i).padStart(2, '0')}</p>
+                    <p class="date">2026</p>
+                </div>
+            </div>
+        `);
+    }
+</script>
+
+        <div class="section-title"
+            id="fashion">
+
+            <p>
+                FASHION SHOW
+            </p>
+
+        </div>
+
+        <script>
+
+            for(let i = 1; i <= 23; i++){
+
+                // 类名完全变回你最开始的 "art"（保持样式一模一样），去掉了会触发跳转的 data-link，加上专属 data-fashion 属性
+                document.write(`
+
+                    <div class="frame">
+
+                        <img class="art"
+                    src="artworks/work fashion/${i}.png"
+                    alt="LOOK ${i}"
+                    data-fashion="${i}">
+
+                        <div class="info">
+
+                            <p class="name">
+                                LOOK ${String(i).padStart(2, '0')}
+                            </p>
+
+                            <p class="date">
+                                2026 
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                `);
+
+            }
+
+        </script>
+
+    </section>
+
+    
+
+</div>
+
+</div>
+
+<div class="fashion-lightbox" id="fashionLightbox" onclick="closeFashionLightbox()">
+    <div class="fashion-lightbox-close">← ARCHIVE</div>
+    <img id="lightboxImg" src="" alt="Fashion Detail">
+</div>
+
+<div class="credits">
+    © 2026 WHITE GARDEN ARCHIVE
+</div>
+
+<script src="codes/script.js"></script>
+
+<script>
+    // ==========================================
+    // 滚动位置保存与恢复 + 升级版 Studio 精准定位
+    // ==========================================
+    
+    const galleryContainer = document.getElementById('galleryContainer');
+    const bigContainer = document.getElementById('BigContainer');
+    
+    function saveGalleryScroll() {
+        if (galleryContainer) {
+            sessionStorage.setItem('galleryScrollX', galleryContainer.scrollLeft);
+        }
+        if (bigContainer) {
+            sessionStorage.setItem('galleryScrollY', bigContainer.scrollTop);
+        }
+    }
+    
+    function restoreGalleryScroll() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const shouldRestore = urlParams.get('restore') === '1';
+        const backToWork = urlParams.get('backToWork'); 
+        
+        if (!shouldRestore) return;
+        
+        window.history.replaceState({}, '', window.location.pathname);
+        
+        if (backToWork) {
+            setTimeout(() => {
+                const targetArt = document.querySelector(`.art[data-work="${backToWork}"]`);
+                if (targetArt) {
+                    const frameElement = targetArt.closest('.frame');
+                    if (frameElement) {
+                        if (window.innerWidth >= 700 && galleryContainer) {
+                            galleryContainer.scrollTo({
+                                left: frameElement.offsetLeft - (window.innerWidth * 0.1),
+                                behavior: 'smooth'
+                            });
+                        } else if (window.innerWidth < 700 && bigContainer) {
+                            frameElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    }
+                }
+            }, 600);
+            return; 
+        }
+        
+        const savedX = sessionStorage.getItem('galleryScrollX');
+        const savedY = sessionStorage.getItem('galleryScrollY');
+        
+        setTimeout(() => {
+            if (window.innerWidth >= 700 && galleryContainer && savedX) {
+                galleryContainer.scrollLeft = parseInt(savedX);
+            }
+            if (window.innerWidth < 700 && bigContainer && savedY) {
+                bigContainer.scrollTop = parseInt(savedY);
+            }
+        }, 600);
+    }
+    
+    window.addEventListener('load', restoreGalleryScroll);
+    
+    document.addEventListener('click', function(e) {
+        const artElement = e.target.closest('.art');
+        if (artElement) {
+            saveGalleryScroll();
+        }
+    });
+
+    // =========================================================
+    // 拦截具有 data-fashion 属性的图片点击，原地弹起大图，完全不改变原列表大小
+    // =========================================================
+    const fashionLightbox = document.getElementById('fashionLightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+
+    document.querySelectorAll('.art[data-fashion]').forEach(item => {
+        item.addEventListener('click', function(e) {
+            // 阻止执行默认可能引发的冲突事件
+            e.stopPropagation();
+            lightboxImg.src = this.src; 
+            fashionLightbox.classList.add('active'); 
+        });
+    });
+
+    function closeFashionLightbox() {
+        fashionLightbox.classList.remove('active'); 
+        setTimeout(() => {
+            lightboxImg.src = ''; 
+        }, 400);
+    }
+</script>
+
+</body>
+
+</html>
