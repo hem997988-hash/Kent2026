@@ -49,6 +49,14 @@
             opacity: 1;
             transform: translateX(-4px);
         }
+
+        /* 保证视频元素在展厅横向滑动中大小与结构与图片完全一致 */
+        .art-video {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            cursor: pointer;
+        }
     </style>
 
 </head>
@@ -85,6 +93,10 @@
 
     <nav class="calander"
         id="calander">
+
+        <a href="#animation">
+            ANIMATION EXHIBITION
+        </a>
 
         <a href="#studio">
             STUDIO ART EXHIBITION
@@ -137,6 +149,53 @@
     <section class="container" id="galleryContainer">
 
         <div class="scroll-spacer"></div>
+
+        <div class="section-title" id="animation">
+            <p>
+                ANIMATION EXHIBITION
+            </p>
+        </div>
+
+        <div class="frame">
+            <video class="art art-video" 
+                   src="artworks/Harry Wan.MOV" 
+                   autoplay loop muted playsinline
+                   data-link="artists/harold-wan.html?work=animation-1"
+                   data-work="animation-1">
+            </video>
+            <div class="info">
+                <p class="name">ANIMATION 01</p>
+                <p class="date">2026</p>
+            </div>
+        </div>
+
+        <div class="frame">
+            <video class="art art-video" 
+                   src="artworks/Harry Wan (Dream 5).mp4" 
+                   autoplay loop muted playsinline
+                   data-link="artists/harold-wan.html?work=animation-2"
+                   data-work="animation-2">
+            </video>
+            <div class="info">
+                <p class="name">ANIMATION 02</p>
+                <p class="date">2026</p>
+            </div>
+        </div>
+
+        <div class="frame">
+            <video class="art art-video" 
+                   src="artworks/Jayda Wang 6.mp4" 
+                   autoplay loop muted playsinline
+                   data-link="artists/jayda-wang.html?work=animation-3"
+                   data-work="animation-3">
+            </video>
+            <div class="info">
+                <p class="name">ANIMATION 03</p>
+                <p class="date">2026</p>
+            </div>
+        </div>
+
+
         <div class="section-title"
             id="studio">
 
@@ -241,7 +300,6 @@
 
             for(let i = 1; i <= 23; i++){
 
-                // 类名完全变回你最开始的 "art"（保持样式一模一样），去掉了会触发跳转的 data-link，加上专属 data-fashion 属性
                 document.write(`
 
                     <div class="frame">
@@ -273,8 +331,6 @@
 
     </section>
 
-    
-
 </div>
 
 </div>
@@ -291,9 +347,9 @@
 <script src="codes/script.js"></script>
 
 <script>
-    // ==========================================
-    // 滚动位置保存与恢复 + 升级版 Studio 精准定位
-    // ==========================================
+    // =========================================================
+    // 滚动位置保存与恢复 + 升级版 Studio & Animation 精准定位
+    // =========================================================
     
     const galleryContainer = document.getElementById('galleryContainer');
     const bigContainer = document.getElementById('BigContainer');
@@ -359,14 +415,13 @@
     });
 
     // =========================================================
-    // 拦截具有 data-fashion 属性的图片点击，原地弹起大图，完全不改变原列表大小
+    // Fashion 灯箱拦截处理控制
     // =========================================================
     const fashionLightbox = document.getElementById('fashionLightbox');
     const lightboxImg = document.getElementById('lightboxImg');
 
     document.querySelectorAll('.art[data-fashion]').forEach(item => {
         item.addEventListener('click', function(e) {
-            // 阻止执行默认可能引发的冲突事件
             e.stopPropagation();
             lightboxImg.src = this.src; 
             fashionLightbox.classList.add('active'); 

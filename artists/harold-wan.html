@@ -53,7 +53,7 @@
         }
 
         /* ========================================== */
-        /* LEFT IMAGE */
+        /* LEFT MEDIA SLOT */
         /* ========================================== */
 
         .artist-image{
@@ -66,7 +66,7 @@
 
         }
 
-        .artist-image img{
+        .artist-image img, .artist-image video{
 
             width:100%;
 
@@ -172,7 +172,7 @@
 
         }
 
-        .other-works img{
+        .other-works img, .other-works video{
 
             width:100%;
 
@@ -184,7 +184,7 @@
 
         }
 
-        .other-works img:hover{
+        .other-works img:hover, .other-works video:hover{
 
             opacity:1;
 
@@ -273,14 +273,7 @@
 
         <div class="artist-layout">
 
-            <div class="artist-image">
-
-                <img
-                id="mainArtwork"
-                src="../artworks/studio art/13.png"
-                alt="">
-
-            </div>
+            <div class="artist-image" id="mediaContainer"></div>
 
             <div class="artist-info">
 
@@ -296,7 +289,7 @@
 
                 </h1>
 
-                <p class="artist-medium">
+                <p class="artist-medium" id="artworkMedium">
 
                     2D, 3D, MIXED MEDIA · 2026
 
@@ -365,49 +358,66 @@
     </section>
 
 <script>
-    // 1. 定义 Harry 的所有作品数据库（均为 Untitled）
-    const workTitles = {
-        13: "Untitled",
-        19: "Untitled",
-        20: "Untitled",
-        21: "Untitled"
+    // 定义包含动画资料的作品库结构
+    const workDatabase = {
+        "13": { title: "Untitled", type: "image", src: "../artworks/studio art/13.png", medium: "2D, 3D, MIXED MEDIA · 2026" },
+        "19": { title: "Untitled", type: "image", src: "../artworks/studio art/19.png", medium: "2D, 3D, MIXED MEDIA · 2026" },
+        "20": { title: "Untitled", type: "image", src: "../artworks/studio art/20.png", medium: "2D, 3D, MIXED MEDIA · 2026" },
+        "21": { title: "Untitled", type: "image", src: "../artworks/studio art/21.png", medium: "2D, 3D, MIXED MEDIA · 2026" },
+        "animation-1": { title: "Untitled", type: "video", src: "../artworks/Harry Wan.MOV", medium: "ANIMATION · 2026" },
+        "animation-2": { title: "Dream", type: "video", src: "../artworks/Harry Wan (Dream 5).mp4", medium: "ANIMATION · 2026" }
     };
 
-    const harryWorks = [13, 19, 20, 21];
+    const harryWorksKeys = ["13", "19", "20", "21", "animation-1", "animation-2"];
 
     const params = new URLSearchParams(window.location.search);
-    const work = params.get("work");
+    const workKey = params.get("work") || "13";
 
-    // 当前作品编号（如果无参数则默认第 13 号）
-    const currentWork = parseInt(work) || 13;
+    const currentItem = workDatabase[workKey] || workDatabase["13"];
 
-    // 设置对应的主图和标题
-    document.getElementById("mainArtwork").src = `../artworks/studio art/${currentWork}.png`;
-    document.getElementById("artworkTitle").textContent = workTitles[currentWork] || "Untitled";
+    // 1. 动态填充左侧媒体载体
+    const mediaContainer = document.getElementById("mediaContainer");
+    if (currentItem.type === "video") {
+        mediaContainer.innerHTML = `<video id="mainArtwork" src="${currentItem.src}" autoplay loop muted playsinline controls></video>`;
+    } else {
+        mediaContainer.innerHTML = `<img id="mainArtwork" src="${currentItem.src}" alt="">`;
+    }
 
-    // 2. 动态生成 OTHER WORKS 列表（排除掉当前正在看的那张图）
+    // 2. 填充基础文字信息
+    document.getElementById("artworkTitle").textContent = currentItem.title;
+    document.getElementById("artworkMedium").textContent = currentItem.medium;
+
+    // 3. 动态生成除当前作品之外的其他作品列表（包括静态图和动画）
     const otherContainer = document.getElementById('otherWorks');
     
-    harryWorks.forEach(num => {
-        if(num !== currentWork){
+    harryWorksKeys.forEach(key => {
+        if(key !== workKey){
+            const item = workDatabase[key];
             const link = document.createElement('a');
-            link.href = `harold-wan.html?work=${num}`;
+            link.href = `harold-wan.html?work=${key}`;
             
-            const img = document.createElement('img');
-            img.src = `../artworks/studio art/${num}.png`;
-            img.alt = workTitles[num] || `Work ${num}`;
-            
-            link.appendChild(img);
+            if (item.type === "video") {
+                const videoPreview = document.createElement('video');
+                videoPreview.src = item.src;
+                videoPreview.muted = true;
+                videoPreview.autoplay = true;
+                videoPreview.loop = true;
+                videoPreview.setAttribute('playsinline', '');
+                link.appendChild(videoPreview);
+            } else {
+                const img = document.createElement('img');
+                img.src = item.src;
+                img.alt = item.title;
+                link.appendChild(img);
+            }
             otherContainer.appendChild(link);
         }
     });
 
-    // ===================================================================
-    // 3. 【核心增加】动态修改返回链接：确保用户不管怎么切作品，按 ARCHIVE 都能带着它回展厅
-    // ===================================================================
+    // 4. 确保 ARCHIVE 返回大厅的精确定位联动
     const backBtn = document.getElementById("backToGallery");
     if (backBtn) {
-        backBtn.href = `../gallery.html?backToWork=${currentWork}&restore=1`;
+        backBtn.href = `../gallery.html?backToWork=${workKey}&restore=1`;
     }
 </script>
 
