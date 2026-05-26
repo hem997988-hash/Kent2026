@@ -205,7 +205,9 @@
 
         </div>
 
+        <div id="studio-gallery-target" style="display: contents;"></div>
         <script>
+    let studioHTML = '';
     for(let i = 1; i <= 61; i++){
         
         let artistPage = 'artists/kent.html'; // 默认
@@ -271,10 +273,11 @@
             artistPage = 'artists/kristina-roeloffs.html';
         }
 
-        document.write(`
+        studioHTML += `
             <div class="frame">
                 <img class="art"
                     src="artworks/studio art/${i}.png"
+                    loading="lazy"
                     alt="Artwork ${i}"
                     data-link="${artistPage}?work=${i}"
                     data-work="${i}">
@@ -283,8 +286,9 @@
                     <p class="date">2026</p>
                 </div>
             </div>
-        `);
+        `;
     }
+    document.getElementById('studio-gallery-target').innerHTML = studioHTML;
 </script>
 
         <div class="section-title"
@@ -296,37 +300,29 @@
 
         </div>
 
+        <div id="fashion-gallery-target" style="display: contents;"></div>
         <script>
-
+            let fashionHTML = '';
             for(let i = 1; i <= 23; i++){
-
-                document.write(`
-
+                fashionHTML += `
                     <div class="frame">
-
                         <img class="art"
-                    src="artworks/work fashion/${i}.png"
-                    alt="LOOK ${i}"
-                    data-fashion="${i}">
-
+                            src="artworks/work fashion/${i}.png"
+                            loading="lazy"
+                            alt="LOOK ${i}"
+                            data-fashion="${i}">
                         <div class="info">
-
                             <p class="name">
                                 LOOK ${String(i).padStart(2, '0')}
                             </p>
-
                             <p class="date">
                                 2026 
                             </p>
-
                         </div>
-
                     </div>
-
-                `);
-
+                `;
             }
-
+            document.getElementById('fashion-gallery-target').innerHTML = fashionHTML;
         </script>
 
     </section>
@@ -415,18 +411,21 @@
     });
 
     // =========================================================
-    // Fashion 灯箱拦截处理控制
+    // Fashion 灯箱拦截处理控制（优化：采用事件委托机制确保异步节点绑定成功）
     // =========================================================
     const fashionLightbox = document.getElementById('fashionLightbox');
     const lightboxImg = document.getElementById('lightboxImg');
 
-    document.querySelectorAll('.art[data-fashion]').forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.stopPropagation();
-            lightboxImg.src = this.src; 
-            fashionLightbox.classList.add('active'); 
+    if(galleryContainer) {
+        galleryContainer.addEventListener('click', function(e) {
+            const item = e.target.closest('.art[data-fashion]');
+            if(item) {
+                e.stopPropagation();
+                lightboxImg.src = item.src; 
+                fashionLightbox.classList.add('active'); 
+            }
         });
-    });
+    }
 
     function closeFashionLightbox() {
         fashionLightbox.classList.remove('active'); 
